@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCKS3eZ8SahyCW0Ys0vO0WAvyfot923ft8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>410818381594</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.budgetBuddy.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>finance-app-5b520</string>
+	<key>STORAGE_BUCKET</key>
+	<string>finance-app-5b520.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:410818381594:ios:5df744d41aea5909930ea3</string>
+	<key>DATABASE_URL</key>
+	<string>https://finance-app-5b520-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "410818381594",
+    "firebase_url": "https://finance-app-5b520-default-rtdb.firebaseio.com",
+    "project_id": "finance-app-5b520",
+    "storage_bucket": "finance-app-5b520.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410818381594:android:b68447bade8b07e8930ea3",
+        "android_client_info": {
+          "package_name": "com.example.budget_buddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYEklgy7DfvYwTZcZ_Vtf-Tk1CL0xvbbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410818381594:android:7d6cfb242ffde236930ea3",
+        "android_client_info": {
+          "package_name": "com.example.finance"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYEklgy7DfvYwTZcZ_Vtf-Tk1CL0xvbbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
