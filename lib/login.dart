@@ -126,6 +126,7 @@ class FormButton extends StatelessWidget {
         ),
         minimumSize: Size(double.infinity, 0),
         primary: Colors.black,
+        foregroundColor: Colors.white,
       ),
       child: Text(
         text,

@@ -64,6 +64,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

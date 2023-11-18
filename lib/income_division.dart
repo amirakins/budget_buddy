@@ -36,19 +36,9 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
       });
     });
 
-    PaymentData.streamPaymentAmount().listen((value) {
+    PaymentData.streamTotalIncome().listen((value) {
       setState(() {
-        paymentAmount = value ?? "";
-        double dpa = double.parse(paymentAmount);
-        monthlyIncome = dpa * 1;
-
-        if (paymentFrequency == "Weekly") {
-          monthlyIncome = dpa * 4;
-        }
-        if (paymentFrequency == "Bi-Weekly") {
-          monthlyIncome = dpa * 2;
-        }
-        monthlyIncome = monthlyIncome - savings;
+        monthlyIncome = value - savings ?? 0;
       });
     });
   }
@@ -94,6 +84,33 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
     if (user != null) {
       CollectionReference users = FirebaseFirestore.instance.collection('users');
       DocumentReference userDoc = users.doc(user.uid);
+
+      if (selectedOption == 'Custom') {
+        double totalPercentage = 0.0;
+
+        // Calculate the total percentage entered by the user
+        categoryData[selectedOption!]!.forEach((key, value) {
+          totalPercentage += value;
+        });
+
+        // Check if the total percentage is equal to 100%
+        if (totalPercentage != 100.0) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Validation Error'),
+              content: Text('The total percentage must equal 100%. Please adjust your entries.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('OK'),
+                ),
+              ],
+            ),
+          );
+          return; // Stop the execution if validation fails
+        }
+      }
 
       Map<String, dynamic> divisionData = {
         'incomeDivision': categoryData[selectedOption!],
@@ -142,13 +159,15 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 32.0),
             const Text(
               'Income Division',
               style: TextStyle(
@@ -230,7 +249,9 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
               ),
               child: Text(
                 'Continue',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16),
               ),
             ),
           ],

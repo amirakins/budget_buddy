@@ -29,6 +29,7 @@ class _NotificationPageState extends State<NotificationPage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,7 +60,7 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(0.0),
           child: TextButton(
             onPressed: () {
               // Handle save button press here

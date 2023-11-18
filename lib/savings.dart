@@ -98,6 +98,7 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -157,7 +158,9 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
               ),
               child: Text(
                 'Add',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16),
               ),
             ),
           ],

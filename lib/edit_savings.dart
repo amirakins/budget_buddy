@@ -80,6 +80,7 @@ class _EditSavingsPageState extends State<EditSavingsPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                 context,
@@ -89,6 +90,7 @@ class _EditSavingsPageState extends State<EditSavingsPage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -149,7 +151,8 @@ class _EditSavingsPageState extends State<EditSavingsPage> {
               ),
               child: Text(
                 'Save',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(color: Colors.white,
+                    fontSize: 16),
               ),
             ),
           ],

@@ -100,6 +100,7 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -316,6 +317,7 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
             },
             child: Icon(Icons.add),
             backgroundColor: Colors.black,
+              foregroundColor: Colors.white
           ),
         ),
       ),

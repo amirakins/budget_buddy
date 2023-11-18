@@ -182,11 +182,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Budget Buddy'),
+        title: Text('Budget Buddy',
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                 context,
@@ -198,6 +200,7 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.person),
+          color: Colors.white,
           onPressed: () {
             Navigator.push(
               context,

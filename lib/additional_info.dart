@@ -69,6 +69,7 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                 context,
@@ -79,6 +80,7 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
         ],
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -139,7 +141,9 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
               ),
               child: Text(
                 'Next',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16),
               ),
             ),
           ],

@@ -149,6 +149,7 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -365,6 +366,7 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                 },
                 child: Icon(Icons.add),
                 backgroundColor: Colors.black,
+                  foregroundColor: Colors.white
               ),
             ),
           ),

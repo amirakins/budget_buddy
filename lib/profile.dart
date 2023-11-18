@@ -16,11 +16,13 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('Profile',
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                 context,
@@ -32,6 +34,7 @@ class ProfilePage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.home),
+          color: Colors.white,
           onPressed: () {
             Navigator.push(
               context,

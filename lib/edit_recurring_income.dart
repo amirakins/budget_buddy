@@ -105,6 +105,7 @@ class _EditRecurringIncomeState extends State<EditRecurringIncomePage> {
           ),
         ],
         backgroundColor: Colors.black,
+          foregroundColor: Colors.white
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -165,7 +166,9 @@ class _EditRecurringIncomeState extends State<EditRecurringIncomePage> {
               ),
               child: Text(
                 'Save',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16),
               ),
             ),
           ],
