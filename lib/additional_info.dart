@@ -17,6 +17,8 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
 
   List<String> paymentFrequencies = ['Weekly', 'Bi-Weekly', 'Monthly'];
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   void calculateTotalIncome() {
     final String paymentAmount = paymentAmountController.text;
     double paymentAmountValue = double.tryParse(paymentAmount) ?? 0.0;
@@ -37,28 +39,31 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
   }
 
   void _handleSubmit() {
-    final String selectedFrequency = selectedPaymentFrequency ?? 'Weekly';
-    final String paymentAmount = paymentAmountController.text;
+    if (_formKey.currentState?.validate() ?? false) {
+      // Form is valid, proceed with saving data
+      final String selectedFrequency = selectedPaymentFrequency ?? 'Weekly';
+      final String paymentAmount = paymentAmountController.text;
 
-    calculateTotalIncome();
+      calculateTotalIncome();
 
-    final User? user = FirebaseAuth.instance.currentUser;
+      final User? user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'paymentFrequency': selectedFrequency,
-        'paymentAmount': paymentAmount,
-        'totalIncome': totalIncome, // Save totalIncome to Firestore
-      }).then((_) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SavingsInputPage()),
-        );
-      }).catchError((error) {
-        print("Error saving data: $error");
-      });
-    } else {
-      print('User is not signed in.');
+      if (user != null) {
+        FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'paymentFrequency': selectedFrequency,
+          'paymentAmount': paymentAmount,
+          'totalIncome': totalIncome, // Save totalIncome to Firestore
+        }).then((_) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SavingsInputPage()),
+          );
+        }).catchError((error) {
+          print("Error saving data: $error");
+        });
+      } else {
+        print('User is not signed in.');
+      }
     }
   }
 
@@ -80,73 +85,86 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
         ],
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
-          foregroundColor: Colors.white
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Add Your Income Details',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 16.0),
-            DropdownButtonFormField<String>(
-              value: selectedPaymentFrequency,
-              items: paymentFrequencies.map((String frequency) {
-                return DropdownMenuItem<String>(
-                  value: frequency,
-                  child: Text(frequency),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedPaymentFrequency = newValue;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Payment Frequency',
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'Add Your Income Details',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: paymentAmountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Payment Amount (\$)',
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+              SizedBox(height: 16.0),
+              DropdownButtonFormField<String>(
+                value: selectedPaymentFrequency,
+                items: paymentFrequencies.map((String frequency) {
+                  return DropdownMenuItem<String>(
+                    value: frequency,
+                    child: Text(frequency),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedPaymentFrequency = newValue;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Payment Frequency',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a payment frequency';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: paymentAmountController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Payment Amount (\$)',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the payment amount';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 24.0),
+              ElevatedButton(
+                onPressed: _handleSubmit,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  minimumSize: Size(double.infinity, 0),
+                  primary: Colors.black,
+                ),
+                child: Text(
+                  'Next',
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
-            ),
-            SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: _handleSubmit,
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                minimumSize: Size(double.infinity, 0),
-                primary: Colors.black,
-              ),
-              child: Text(
-                'Next',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
