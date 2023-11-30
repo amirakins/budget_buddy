@@ -43,7 +43,7 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
 
   void calculateSavingsAmount() {
     if (isPercentage) {
-      monthlySavingsAmount = (savingsPercentage / 100) * monthlyIncome;
+      monthlySavingsAmount = double.parse(((savingsPercentage / 100) * monthlyIncome).toStringAsFixed(2));
     }
   }
 
@@ -117,7 +117,7 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
               keyboardType: TextInputType.number,
               controller: savingsController,
               decoration: InputDecoration(
-                labelText: 'Enter Savings Amount',
+                labelText: 'Enter Savings Amount (\$)',
                 hintText: '0',
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: OutlineInputBorder(

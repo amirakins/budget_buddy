@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
             // Handle button tap for Recurring Income
           }),
           SizedBox(height: 16.0),
-          _buildButton(context, 'Edit Recurring Expenses', () {
+          _buildButton(context, 'Edit Expenses', () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => EditRecurringExpensesPage()),
