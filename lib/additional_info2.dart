@@ -29,7 +29,10 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
   void _addExpense() {
     final String name = expenseNameController.text;
     final String occurrence = selectedOccurrence ?? '';
-    final String amount = expenseAmountController.text;
+    String amount = expenseAmountController.text;
+    double doubleAmount = double.parse(amount);
+    doubleAmount = double.parse(doubleAmount.toStringAsFixed(2));
+    amount = doubleAmount.toString();
 
     if (name.isEmpty || selectedCategory == null || occurrence.isEmpty || amount.isEmpty) {
       return;

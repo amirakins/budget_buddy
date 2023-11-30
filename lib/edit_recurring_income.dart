@@ -65,7 +65,10 @@ class _EditRecurringIncomeState extends State<EditRecurringIncomePage> {
 
   void _handleSubmit() {
     final String selectedFrequency = selectedPaymentFrequency ?? 'Weekly';
-    final String paymentAmount = paymentAmountController.text;
+    String paymentAmount = paymentAmountController.text;
+    double doublePaymentAmount = double.parse(paymentAmount);
+    doublePaymentAmount = double.parse(doublePaymentAmount.toStringAsFixed(2));
+    paymentAmount = doublePaymentAmount.toString();
 
     calculateTotalIncome();
 
@@ -75,7 +78,7 @@ class _EditRecurringIncomeState extends State<EditRecurringIncomePage> {
       FirebaseFirestore.instance.collection('users').doc(user.uid).update({
         'paymentFrequency': selectedFrequency,
         'paymentAmount': paymentAmount,
-        'totalIncome': totalIncome,
+        'totalIncome': double.parse(totalIncome.toStringAsFixed(2)),
       }).then((_) {
         Navigator.push(
           context,
