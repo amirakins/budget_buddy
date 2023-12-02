@@ -67,6 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -160,11 +161,13 @@ class InputField extends StatelessWidget {
   final TextEditingController controller;
   final String? labelText;
   final bool obscureText;
+  final double labelFontSize; // Font size for the label text
 
   const InputField({
     required this.controller,
     this.labelText,
     this.obscureText = false,
+    this.labelFontSize = 22.0, // Default label font size is 14.0
     Key? key,
   }) : super(key: key);
 
@@ -173,10 +176,11 @@ class InputField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
-      style: TextStyle(fontSize: 18.0),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(fontSize: 18.0),
+        labelStyle: TextStyle(
+          fontSize: labelFontSize, // Set the label font size
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -185,3 +189,4 @@ class InputField extends StatelessWidget {
     );
   }
 }
+

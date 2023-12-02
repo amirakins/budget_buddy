@@ -118,8 +118,11 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
               controller: savingsController,
               decoration: InputDecoration(
                 labelText: 'Enter Savings Amount (\$)',
-                hintText: '0',
+                hintText: '0.00',
                 floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelStyle: TextStyle(
+                  fontSize: 22.0, // Set the desired label font size
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

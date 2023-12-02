@@ -171,6 +171,7 @@ class _EditIncomeDivisionPageState extends State<EditIncomeDivisionPage> {
             SizedBox(height: 32.0),
             const Text(
               'Edit Income Division',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -191,10 +192,10 @@ class _EditIncomeDivisionPageState extends State<EditIncomeDivisionPage> {
             ),
             SizedBox(height: 24.0),
             if (selectedOption == 'Custom')
-              Text(
+              /*Text(
                 'Enter Percentage for Each Category:',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
+              ),*/
             if (selectedOption == 'Custom')
               for (final category in categoryData['25/25/25/25']!.keys)
                 Row(
@@ -213,6 +214,9 @@ class _EditIncomeDivisionPageState extends State<EditIncomeDivisionPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: '%',
+                          labelStyle: TextStyle(
+                            fontSize: 22.0, // Set the desired label font size
+                          ),
                         ),
                       ),
                     ),

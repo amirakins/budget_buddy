@@ -140,11 +140,13 @@ class InputField extends StatelessWidget {
   final TextEditingController controller;
   final String? labelText;
   final bool obscureText;
+  final double labelFontSize; // Font size for the label text
 
   const InputField({
     required this.controller,
     this.labelText,
     this.obscureText = false,
+    this.labelFontSize = 22.0, // Default label font size is 14.0
     Key? key,
   }) : super(key: key);
 
@@ -155,6 +157,9 @@ class InputField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: labelText,
+        labelStyle: TextStyle(
+          fontSize: labelFontSize, // Set the label font size
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -163,3 +168,4 @@ class InputField extends StatelessWidget {
     );
   }
 }
+

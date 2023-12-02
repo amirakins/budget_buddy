@@ -176,7 +176,10 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Add Expense'),
+                    title: Text(
+                      'Add Expense',
+                      textAlign: TextAlign.center,
+                    ),
                     content: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
@@ -203,7 +206,7 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                               labelText: 'Category',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelStyle: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 22.0,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -224,13 +227,13 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                               labelText: 'Description',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelStyle: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 22.0,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
-                            maxLines: 2,
+                            maxLines: 1,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(100),
                             ],
@@ -259,7 +262,7 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                               labelText: 'Occurrence',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelStyle: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 22.0,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -278,10 +281,10 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                               fontSize: 16.0,
                             ),
                             decoration: InputDecoration(
-                              labelText: 'Amount',
+                              labelText: 'Amount (\$)',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               labelStyle: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 22.0,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),

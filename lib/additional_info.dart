@@ -118,6 +118,9 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
                 decoration: InputDecoration(
                   labelText: 'Payment Frequency',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelStyle: TextStyle(
+                    fontSize: 22.0, // Set the desired label font size
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -136,6 +139,9 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
                 decoration: InputDecoration(
                   labelText: 'Payment Amount (\$)',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
+                  labelStyle: TextStyle(
+                    fontSize: 22.0, // Set the desired label font size
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

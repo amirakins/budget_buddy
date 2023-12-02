@@ -498,7 +498,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
             style: TextStyle(fontSize: 16.0),
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Amount',
+              labelText: 'Amount (\$)',
               labelStyle: TextStyle(fontSize: 16.0),
               floatingLabelBehavior: FloatingLabelBehavior.always,
               border: OutlineInputBorder(
@@ -523,7 +523,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
               alignment: Alignment.center,
               child: Text(
                 'Add Expense',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
           ),

@@ -87,13 +87,13 @@ class ProfilePage extends StatelessWidget {
             );
             // Handle button tap for Profile
           }),
-          SizedBox(height: 16.0),
+          /*SizedBox(height: 16.0),
           _buildButton(context, 'Notifications', () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NotificationPage()),
             );
-          }),
+          }),*/
           /*SizedBox(height: 16.0),
           _buildButton(context, 'Test', () {
             Navigator.push(

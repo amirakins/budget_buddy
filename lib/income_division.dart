@@ -143,7 +143,7 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final totalIncome = widget.totalIncome;
+    final totalIncome = monthlyIncome;
 
     return Scaffold(
       appBar: AppBar(
@@ -170,6 +170,7 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
             SizedBox(height: 32.0),
             const Text(
               'Income Division',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -186,14 +187,17 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
               onChanged: _handleOptionChange,
               decoration: InputDecoration(
                 labelText: 'Select Option',
+                labelStyle: TextStyle(
+                  fontSize: 22.0, // Set the desired label font size
+                ),
               ),
             ),
             SizedBox(height: 24.0),
             if (selectedOption == 'Custom')
-              Text(
+              /*Text(
                 'Enter Percentage for Each Category:',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
+              ),*/
             if (selectedOption == 'Custom')
               for (final category in categoryData['25/25/25/25']!.keys)
                 Row(
@@ -212,6 +216,9 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: '%',
+                          labelStyle: TextStyle(
+                            fontSize: 22.0, // Set the desired label font size
+                          ),
                         ),
                       ),
                     ),
@@ -248,7 +255,7 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
                 primary: Colors.black,
               ),
               child: Text(
-                'Continue',
+                'Complete',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16),

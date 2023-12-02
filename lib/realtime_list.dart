@@ -179,11 +179,11 @@ class PersonalExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'Description'),
               ),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: InputDecoration(labelText: 'Amount (\$)'),
               ),
             ],
           ),
@@ -409,11 +409,11 @@ class HousingExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'Description'),
               ),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: InputDecoration(labelText: 'Amount (\$)'),
               ),
             ],
           ),
@@ -639,11 +639,11 @@ class FoodExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'Description'),
               ),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: InputDecoration(labelText: 'Amount (\$)'),
               ),
             ],
           ),
@@ -869,11 +869,11 @@ class TransportationExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'Description'),
               ),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: InputDecoration(labelText: 'Amount (\$)'),
               ),
             ],
           ),

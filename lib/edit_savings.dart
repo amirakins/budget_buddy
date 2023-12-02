@@ -112,6 +112,9 @@ class _EditSavingsPageState extends State<EditSavingsPage> {
                 labelText: 'Enter Savings Amount (\$)',
                 hintText: '0.00',
                 floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelStyle: TextStyle(
+                  fontSize: 22.0, // Set the desired label font size
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

@@ -222,7 +222,10 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Add Expense'),
+                        title: Text(
+                            'Add Expense',
+                          textAlign: TextAlign.center,
+                        ),
                         content: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
@@ -249,7 +252,7 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                                   labelText: 'Category',
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelStyle: TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: 22.0,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -270,13 +273,13 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                                   labelText: 'Description',
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelStyle: TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: 22.0,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                maxLines: 2,
+                                maxLines: 1,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(100),
                                 ],
@@ -305,7 +308,7 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                                   labelText: 'Occurrence',
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelStyle: TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: 22.0,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -324,10 +327,10 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                                   fontSize: 16.0,
                                 ),
                                 decoration: InputDecoration(
-                                  labelText: 'Amount',
+                                  labelText: 'Amount (\$)',
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelStyle: TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: 22.0,
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
