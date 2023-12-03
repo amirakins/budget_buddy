@@ -3,6 +3,7 @@ import 'package:budget_buddy/savings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'login.dart';
 
 class AdditionalInfoPage extends StatefulWidget {
@@ -136,6 +137,9 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
               TextFormField(
                 controller: paymentAmountController,
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                ],
                 decoration: InputDecoration(
                   labelText: 'Payment Amount (\$)',
                   floatingLabelBehavior: FloatingLabelBehavior.always,

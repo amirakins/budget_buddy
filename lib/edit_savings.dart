@@ -2,6 +2,7 @@ import 'package:budget_buddy/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'additional_info2.dart';
 import 'data.dart';
 import 'login.dart';
@@ -107,6 +108,9 @@ class _EditSavingsPageState extends State<EditSavingsPage> {
             SizedBox(height: 16.0),
             TextField(
               keyboardType: TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              ],
               controller: savingsController,
               decoration: InputDecoration(
                 labelText: 'Enter Savings Amount (\$)',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'data.dart';
 import 'login.dart';
 import 'profile.dart';
@@ -221,7 +222,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               elevation: 5.0,
               child: CategoryChart(
-                categoryName: 'Balance: \$${remainingBalance.toStringAsFixed(2)} / \$${monthlyIncome.toStringAsFixed(2)}',
+                categoryName: 'Balance: \$${remainingBalance.toStringAsFixed(2)} / \$${monthlyIncome.toStringAsFixed(2)}' '\n Savings Goal: \$${savings.toStringAsFixed(2)}',
                 allocated: monthlyIncome,
                 expenses: monthlyExpenses,
                 showAddButton: true,
@@ -497,6 +498,9 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
             },
             style: TextStyle(fontSize: 16.0),
             keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+            ],
             decoration: InputDecoration(
               labelText: 'Amount (\$)',
               labelStyle: TextStyle(fontSize: 16.0),
@@ -510,6 +514,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
           ElevatedButton(
             onPressed: () {
               _addExpenseToFirestore();
+              Navigator.of(context).pop();
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.black,
@@ -522,7 +527,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
               width: double.infinity,
               alignment: Alignment.center,
               child: Text(
-                'Add Expense',
+                'Add',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),

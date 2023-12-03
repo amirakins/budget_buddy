@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 class RealTimeDataPage extends StatefulWidget {
   @override
@@ -184,6 +185,10 @@ class PersonalExpensesList extends StatelessWidget {
               TextFormField(
                 controller: amountController,
                 decoration: InputDecoration(labelText: 'Amount (\$)'),
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                ],
               ),
             ],
           ),
@@ -414,6 +419,10 @@ class HousingExpensesList extends StatelessWidget {
               TextFormField(
                 controller: amountController,
                 decoration: InputDecoration(labelText: 'Amount (\$)'),
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                ],
               ),
             ],
           ),
@@ -644,6 +653,10 @@ class FoodExpensesList extends StatelessWidget {
               TextFormField(
                 controller: amountController,
                 decoration: InputDecoration(labelText: 'Amount (\$)'),
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                ],
               ),
             ],
           ),
@@ -874,6 +887,10 @@ class TransportationExpensesList extends StatelessWidget {
               TextFormField(
                 controller: amountController,
                 decoration: InputDecoration(labelText: 'Amount (\$)'),
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                ],
               ),
             ],
           ),

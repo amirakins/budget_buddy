@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'additional_info2.dart';
 import 'data.dart';
 import 'login.dart';
@@ -115,6 +116,9 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
             SizedBox(height: 16.0),
             TextField(
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              ],
               controller: savingsController,
               decoration: InputDecoration(
                 labelText: 'Enter Savings Amount (\$)',

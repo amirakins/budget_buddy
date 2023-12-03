@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 import 'data.dart';
 import 'home.dart';
@@ -194,11 +195,6 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
             ),
             SizedBox(height: 24.0),
             if (selectedOption == 'Custom')
-              /*Text(
-                'Enter Percentage for Each Category:',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),*/
-            if (selectedOption == 'Custom')
               for (final category in categoryData['25/25/25/25']!.keys)
                 Row(
                   children: [
@@ -214,6 +210,9 @@ class _IncomeDivisionPageState extends State<IncomeDivisionPage> {
                           _handlePercentageChange(category, percentage);
                         },
                         keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        ],
                         decoration: InputDecoration(
                           labelText: '%',
                           labelStyle: TextStyle(
