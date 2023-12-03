@@ -169,13 +169,17 @@ class _HomePageState extends State<HomePage> {
       }
 
       if (category == "Food") {
-        expensesByCategory['Food']!.add({'name': expense['name'], 'monthlyExpense': amount});
+        expensesByCategory['Food']!
+            .add({'name': expense['name'], 'monthlyExpense': amount});
       } else if (category == "Housing") {
-        expensesByCategory['Housing']!.add({'name': expense['name'], 'monthlyExpense': amount});
+        expensesByCategory['Housing']!
+            .add({'name': expense['name'], 'monthlyExpense': amount});
       } else if (category == "Personal") {
-        expensesByCategory['Personal']!.add({'name': expense['name'], 'monthlyExpense': amount});
+        expensesByCategory['Personal']!
+            .add({'name': expense['name'], 'monthlyExpense': amount});
       } else if (category == "Transportation") {
-        expensesByCategory['Transportation']!.add({'name': expense['name'], 'monthlyExpense': amount});
+        expensesByCategory['Transportation']!
+            .add({'name': expense['name'], 'monthlyExpense': amount});
       }
     }
 
@@ -183,8 +187,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Budget Buddy',
-            style: TextStyle(color: Colors.white)),
+        title: Text('Budget Buddy', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -214,81 +217,81 @@ class _HomePageState extends State<HomePage> {
       body: paymentAmount.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            // Card 1 - Balance Chart
-            Card(
-              color: Colors.white,
-              elevation: 5.0,
-              child: CategoryChart(
-                categoryName: 'Balance: \$${remainingBalance.toStringAsFixed(2)} / \$${monthlyIncome.toStringAsFixed(2)}',
-                allocated: monthlyIncome,
-                expenses: monthlyExpenses,
-                showAddButton: true,
+              padding: const EdgeInsets.all(16.0),
+              child: ListView(
+                children: [
+                  // Card 1 - Balance Chart
+                  Card(
+                    color: Colors.white,
+                    elevation: 5.0,
+                    child: CategoryChart(
+                      categoryName:
+                          'Balance: \$${remainingBalance.toStringAsFixed(2)} / \$${monthlyIncome.toStringAsFixed(2)}',
+                      allocated: monthlyIncome,
+                      expenses: monthlyExpenses,
+                      showAddButton: true,
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+
+                  // Card 2 - Transportation
+                  Card(
+                    color: Colors.white,
+                    elevation: 5.0,
+                    child: CategoryChart(
+                      categoryName: 'Transportation',
+                      allocated: (transportationDiv / 100) * monthlyIncome,
+                      expenses: transportationExpenses,
+                      showAddButton: false,
+                    ),
+                  ),
+                  TransportationExpensesList(),
+                  SizedBox(height: 16.0),
+
+                  // Card 3 - Food
+                  Card(
+                    color: Colors.white,
+                    elevation: 5.0,
+                    child: CategoryChart(
+                      categoryName: 'Food',
+                      allocated: (foodDiv / 100) * monthlyIncome,
+                      expenses: foodExpenses,
+                      showAddButton: false,
+                    ),
+                  ),
+                  FoodExpensesList(),
+                  SizedBox(height: 16.0),
+
+                  // Card 4 - Housing
+                  Card(
+                    color: Colors.white,
+                    elevation: 5.0,
+                    child: CategoryChart(
+                      categoryName: 'Housing',
+                      allocated: (housingDiv / 100) * monthlyIncome,
+                      expenses: housingExpenses,
+                      showAddButton: false,
+                    ),
+                  ),
+                  HousingExpensesList(),
+                  SizedBox(height: 16.0),
+
+                  // Card 5 - Personal
+                  Card(
+                    color: Colors.white,
+                    elevation: 5.0,
+                    child: CategoryChart(
+                      categoryName: 'Personal',
+                      allocated: (personalDiv / 100) * monthlyIncome,
+                      expenses: personalExpenses,
+                      showAddButton: false,
+                    ),
+                  ),
+                  PersonalExpensesList(),
+                  SizedBox(height: 16.0),
+                ],
               ),
             ),
-            SizedBox(height: 16.0),
-
-            // Card 2 - Transportation
-            Card(
-              color: Colors.white,
-              elevation: 5.0,
-
-              child: CategoryChart(
-                categoryName: 'Transportation',
-                allocated: (transportationDiv / 100) * monthlyIncome,
-                expenses: transportationExpenses,
-                showAddButton: false,
-              ),
-            ),
-            TransportationExpensesList(),
-            SizedBox(height: 16.0),
-
-            // Card 3 - Food
-            Card(
-              color: Colors.white,
-              elevation: 5.0,
-              child: CategoryChart(
-                categoryName: 'Food',
-                allocated: (foodDiv / 100) * monthlyIncome,
-                expenses: foodExpenses,
-                showAddButton: false,
-              ),
-            ),
-            FoodExpensesList(),
-            SizedBox(height: 16.0),
-
-            // Card 4 - Housing
-            Card(
-              color: Colors.white,
-              elevation: 5.0,
-              child: CategoryChart(
-                categoryName: 'Housing',
-                allocated: (housingDiv / 100) * monthlyIncome,
-                expenses: housingExpenses,
-                showAddButton: false,
-              ),
-            ),
-            HousingExpensesList(),
-            SizedBox(height: 16.0),
-
-            // Card 5 - Personal
-            Card(
-              color: Colors.white,
-              elevation: 5.0,
-              child: CategoryChart(
-                categoryName: 'Personal',
-                allocated: (personalDiv / 100) * monthlyIncome,
-                expenses: personalExpenses,
-                showAddButton: false,
-              ),
-            ),
-            PersonalExpensesList(),
-            SizedBox(height: 16.0),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -347,12 +350,20 @@ class CategoryChart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0), // Add horizontal padding
-                    child: Text('Allocated: \$${allocated.toStringAsFixed(2)}'),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0), // Add horizontal padding
+                    child: Text(
+                      'Allocated: \$${allocated.toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0), // Add horizontal padding
-                    child: Text('Expenses: \$${expenses.toStringAsFixed(2)}'),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0), // Add horizontal padding
+                    child: Text(
+                      'Expenses: \$${expenses.toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ],
               ),
@@ -374,7 +385,7 @@ class CategoryChart extends StatelessWidget {
               ),
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 100),
-                backgroundColor: Colors.black,// Stretch the button
+                backgroundColor: Colors.black, // Stretch the button
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -415,15 +426,21 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
   Future<void> _addExpenseToFirestore() async {
     final user = FirebaseAuth.instance.currentUser;
 
-    if (user != null && selectedCategory != null && description != null && amount != null) {
-      final DocumentReference userDocRef = _firestore.collection('users').doc(user.uid);
+    if (user != null &&
+        selectedCategory != null &&
+        description != null &&
+        amount != null) {
+      final DocumentReference userDocRef =
+          _firestore.collection('users').doc(user.uid);
 
       final userDoc = await userDocRef.get();
 
       if (userDoc.exists) {
-        final Map<String, dynamic>? userData = userDoc.data() as Map<String, dynamic>?;
+        final Map<String, dynamic>? userData =
+            userDoc.data() as Map<String, dynamic>?;
 
-        final List<dynamic> currentExpenses = (userData?['expenses'] as List<dynamic>?) ?? [];
+        final List<dynamic> currentExpenses =
+            (userData?['expenses'] as List<dynamic>?) ?? [];
 
         Map<String, dynamic> expenseData = {
           'category': selectedCategory,
@@ -535,8 +552,8 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
               ),
             ),
           ),
-
-      ],
-    ),);
+        ],
+      ),
+    );
   }
 }

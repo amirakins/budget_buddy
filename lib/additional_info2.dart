@@ -34,11 +34,15 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
     doubleAmount = double.parse(doubleAmount.toStringAsFixed(2));
     amount = doubleAmount.toString();
 
-    if (name.isEmpty || selectedCategory == null || occurrence.isEmpty || amount.isEmpty) {
+    if (name.isEmpty ||
+        selectedCategory == null ||
+        occurrence.isEmpty ||
+        amount.isEmpty) {
       return;
     }
 
-    final Expense newExpense = Expense(name, selectedCategory!, occurrence, amount);
+    final Expense newExpense =
+        Expense(name, selectedCategory!, occurrence, amount);
     setState(() {
       expenses.add(newExpense);
     });
@@ -59,7 +63,8 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
       DocumentReference userDoc = users.doc(user.uid);
 
       Map<String, dynamic> additionalInfo = {
@@ -67,7 +72,12 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
       };
 
       userDoc.set(additionalInfo, SetOptions(merge: true)).then((value) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => IncomeDivisionPage(totalIncome: 0,)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => IncomeDivisionPage(
+                      totalIncome: 0,
+                    )));
       }).catchError((error) {
         showDialog(
           context: context,
@@ -90,21 +100,20 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lets Add Your Recurring Expenses'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            },
-          ),
-        ],
-        backgroundColor: Colors.black,
-          foregroundColor: Colors.white
-      ),
+          title: Text('Lets Add Your Recurring Expenses'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+          ],
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: DataTable(
@@ -123,11 +132,12 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                 DataCell(
                   Tooltip(
                     message: expense.name, // The description to show on hover
-                    child: Text(expense.name),
+                    child: Text(expense.name.toUpperCase()),
                   ),
                 ),
                 DataCell(Text(expense.occurrence)),
-                DataCell(Text(expense.amount)),
+                DataCell(Text(
+                    '\$${double.parse(expense.amount).toStringAsFixed(2)}')),
                 DataCell(
                   IconButton(
                     icon: Icon(Icons.delete),
@@ -137,7 +147,8 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text('Delete Expense'),
-                            content: Text('Are you sure you want to delete this expense?'),
+                            content: Text(
+                                'Are you sure you want to delete this expense?'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
@@ -166,167 +177,175 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
       ),
       floatingActionButton: Stack(
         children: [
-        Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
-          child: FloatingActionButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text(
-                      'Add Expense',
-                      textAlign: TextAlign.center,
-                    ),
-                    content: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          DropdownButtonFormField<String>(
-                            value: selectedCategory,
-                            items: categories.map((String category) {
-                              return DropdownMenuItem<String>(
-                                value: category,
-                                child: Text(
-                                  category,
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: FloatingActionButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Add Expense',
+                            textAlign: TextAlign.center,
+                          ),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                DropdownButtonFormField<String>(
+                                  value: selectedCategory,
+                                  items: categories.map((String category) {
+                                    return DropdownMenuItem<String>(
+                                      value: category,
+                                      child: Text(
+                                        category,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors
+                                              .black, // Set text color to black
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedCategory = newValue;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Category',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
                                   style: TextStyle(
                                     fontSize: 16.0,
-                                    color: Colors.black, // Set text color to black
+                                    color: Colors
+                                        .black, // Set dropdown text color to black
                                   ),
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedCategory = newValue;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Category',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelStyle: TextStyle(
-                                fontSize: 22.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black, // Set dropdown text color to black
-                            ),
-                          ),
-                          SizedBox(height: 16.0),
-                          TextFormField(
-                            controller: expenseNameController,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              labelText: 'Description',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelStyle: TextStyle(
-                                fontSize: 22.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            maxLines: 1,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(100),
-                            ],
-                          ),
-                          SizedBox(height: 16.0),
-                          DropdownButtonFormField<String>(
-                            value: selectedOccurrence,
-                            items: occurrences.map((String occurrence) {
-                              return DropdownMenuItem<String>(
-                                value: occurrence,
-                                child: Text(
-                                  occurrence,
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: expenseNameController,
                                   style: TextStyle(
                                     fontSize: 16.0,
-                                    color: Colors.black, // Set text color to black
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Description',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(100),
+                                  ],
+                                ),
+                                SizedBox(height: 16.0),
+                                DropdownButtonFormField<String>(
+                                  value: selectedOccurrence,
+                                  items: occurrences.map((String occurrence) {
+                                    return DropdownMenuItem<String>(
+                                      value: occurrence,
+                                      child: Text(
+                                        occurrence,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors
+                                              .black, // Set text color to black
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedOccurrence = newValue;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Occurrence',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors
+                                        .black, // Set dropdown text color to black
                                   ),
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedOccurrence = newValue;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Occurrence',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelStyle: TextStyle(
-                                fontSize: 22.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black, // Set dropdown text color to black
-                            ),
-                          ),
-                          SizedBox(height: 16.0),
-                          TextFormField(
-                            controller: expenseAmountController,
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                            ),
-                            decoration: InputDecoration(
-                              labelText: 'Amount (\$)',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelStyle: TextStyle(
-                                fontSize: 22.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: expenseAmountController,
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Amount (\$)',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {
-                          _addExpense();
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
-                          primary: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          minimumSize: Size(double.infinity, 0),
-                        ),
-                        child: Text(
-                          'Add',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: Icon(Icons.add),
-            backgroundColor: Colors.black,
-              foregroundColor: Colors.white
+                          actions: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {
+                                _addExpense();
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 30.0, vertical: 16.0),
+                                primary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                minimumSize: Size(double.infinity, 0),
+                              ),
+                              child: Text(
+                                'Add',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white),
+            ),
           ),
-        ),
-      ),
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
@@ -334,7 +353,8 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
               child: ElevatedButton(
                 onPressed: _navigateToNextScreen,
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
                   primary: Colors.black,
                 ),
                 child: Text(
@@ -348,7 +368,7 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
             ),
           ),
         ],
-    ),
+      ),
     );
   }
 }
@@ -362,11 +382,11 @@ class Expense {
   Expense(this.name, this.category, this.occurrence, this.amount);
 
   Map<String, dynamic> toMap() {
-  return {
-  'name': name,
-  'category': category,
-  'occurrence': occurrence,
-  'amount': amount,
-  };
+    return {
+      'name': name,
+      'category': category,
+      'occurrence': occurrence,
+      'amount': amount,
+    };
   }
 }

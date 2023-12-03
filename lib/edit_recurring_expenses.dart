@@ -14,7 +14,8 @@ void main() {
 
 class EditRecurringExpensesPage extends StatefulWidget {
   @override
-  _EditRecurringExpensesPageState createState() => _EditRecurringExpensesPageState();
+  _EditRecurringExpensesPageState createState() =>
+      _EditRecurringExpensesPageState();
 }
 
 class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
@@ -38,13 +39,15 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
       DocumentReference userDoc = users.doc(user.uid);
 
       userDoc.get().then((document) {
         if (document.exists) {
           final data = document.data() as Map<String, dynamic>;
-          print("Fetched Data: $data"); // Add this line to print the fetched data.
+          print(
+              "Fetched Data: $data"); // Add this line to print the fetched data.
 
           if (data.containsKey('expenses')) {
             final expensesData = data['expenses'] as List<dynamic>;
@@ -64,7 +67,6 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
     }
   }
 
-
   void _addExpense() {
     final String name = expenseNameController.text;
     final String? occurrence = selectedOccurrence;
@@ -76,7 +78,8 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
 
     // Check if selectedOccurrence is not null and not empty
     if (selectedOccurrence != null && selectedOccurrence!.isNotEmpty) {
-      final Expense newExpense = Expense(name, selectedCategory!, occurrence!, amount);
+      final Expense newExpense =
+          Expense(name, selectedCategory!, occurrence!, amount);
       setState(() {
         expenses.add(newExpense);
       });
@@ -94,7 +97,6 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
     expenseAmountController.clear();
   }
 
-
   void _deleteExpense(Expense expense) {
     setState(() {
       expenses.remove(expense);
@@ -105,7 +107,8 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
       DocumentReference userDoc = users.doc(user.uid);
 
       Map<String, dynamic> additionalInfo = {
@@ -113,7 +116,8 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
       };
 
       userDoc.set(additionalInfo, SetOptions(merge: true)).then((value) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProfilePage()));
       }).catchError((error) {
         showDialog(
           context: context,
@@ -136,21 +140,20 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Your Expenses'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            },
-          ),
-        ],
-        backgroundColor: Colors.black,
-          foregroundColor: Colors.white
-      ),
+          title: Text('Edit Your Expenses'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+          ],
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: DataTable(
@@ -169,11 +172,12 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                 DataCell(
                   Tooltip(
                     message: expense.name, // The description to show on hover
-                    child: Text(expense.name),
+                    child: Text(expense.name.toUpperCase()),
                   ),
                 ),
                 DataCell(Text(expense.occurrence)),
-                DataCell(Text(expense.amount)),
+                DataCell(Text(
+                    '\$${double.parse(expense.amount).toStringAsFixed(2)}')),
                 DataCell(
                   IconButton(
                     icon: Icon(Icons.delete),
@@ -183,7 +187,8 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text('Delete Expense'),
-                            content: Text('Are you sure you want to delete this expense?'),
+                            content: Text(
+                                'Are you sure you want to delete this expense?'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
@@ -217,160 +222,168 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
             child: Padding(
               padding: const EdgeInsets.only(left: 30.0),
               child: FloatingActionButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
                             'Add Expense',
-                          textAlign: TextAlign.center,
-                        ),
-                        content: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              DropdownButtonFormField<String>(
-                                value: selectedCategory,
-                                items: categories.map((String category) {
-                                  return DropdownMenuItem<String>(
-                                    value: category,
-                                    child: Text(
-                                      category,
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black, // Set text color to black
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedCategory = newValue;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Category',
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  labelStyle: TextStyle(
-                                    fontSize: 22.0,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black, // Set dropdown text color to black
-                                ),
-                              ),
-                              SizedBox(height: 16.0),
-                              TextFormField(
-                                controller: expenseNameController,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Description',
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  labelStyle: TextStyle(
-                                    fontSize: 22.0,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                maxLines: 1,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(100),
-                                ],
-                              ),
-                              SizedBox(height: 16.0),
-                              DropdownButtonFormField<String>(
-                                value: selectedOccurrence,
-                                items: occurrences.map((String occurrence) {
-                                  return DropdownMenuItem<String>(
-                                    value: occurrence,
-                                    child: Text(
-                                      occurrence,
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black, // Set text color to black
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedOccurrence = newValue;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Occurrence',
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  labelStyle: TextStyle(
-                                    fontSize: 22.0,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black, // Set dropdown text color to black
-                                ),
-                              ),
-                              SizedBox(height: 16.0),
-                              TextFormField(
-                                controller: expenseAmountController,
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Amount (\$)',
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  labelStyle: TextStyle(
-                                    fontSize: 22.0,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              _addExpense();
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
-                              primary: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              minimumSize: Size(double.infinity, 0),
-                            ),
-                            child: Text(
-                              'Add',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                              ),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                DropdownButtonFormField<String>(
+                                  value: selectedCategory,
+                                  items: categories.map((String category) {
+                                    return DropdownMenuItem<String>(
+                                      value: category,
+                                      child: Text(
+                                        category,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors
+                                              .black, // Set text color to black
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedCategory = newValue;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Category',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors
+                                        .black, // Set dropdown text color to black
+                                  ),
+                                ),
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: expenseNameController,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Description',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(100),
+                                  ],
+                                ),
+                                SizedBox(height: 16.0),
+                                DropdownButtonFormField<String>(
+                                  value: selectedOccurrence,
+                                  items: occurrences.map((String occurrence) {
+                                    return DropdownMenuItem<String>(
+                                      value: occurrence,
+                                      child: Text(
+                                        occurrence,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors
+                                              .black, // Set text color to black
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedOccurrence = newValue;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Occurrence',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors
+                                        .black, // Set dropdown text color to black
+                                  ),
+                                ),
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: expenseAmountController,
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Amount (\$)',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    labelStyle: TextStyle(
+                                      fontSize: 22.0,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Colors.black,
-                  foregroundColor: Colors.white
-              ),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {
+                                _addExpense();
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 30.0, vertical: 16.0),
+                                primary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                minimumSize: Size(double.infinity, 0),
+                              ),
+                              child: Text(
+                                'Add',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white),
             ),
           ),
           Align(
@@ -380,7 +393,8 @@ class _EditRecurringExpensesPageState extends State<EditRecurringExpensesPage> {
               child: ElevatedButton(
                 onPressed: _navigateToNextScreen,
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
                   primary: Colors.black,
                 ),
                 child: Text(

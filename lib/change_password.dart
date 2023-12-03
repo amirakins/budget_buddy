@@ -14,7 +14,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmNewPasswordController = TextEditingController();
 
-  String? _passwordMatchError;
+  String? _passwordMatchError; // Make sure this line is present
 
   void _changePassword() async {
     if (_formKey.currentState!.validate()) {
@@ -22,6 +22,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         User? user = FirebaseAuth.instance.currentUser;
 
         if (user != null) {
+          final credentials = EmailAuthProvider.credential(
+            email: user.email ?? '',
+            password: _currentPasswordController.text,
+          );
+
+          await user.reauthenticateWithCredential(credentials);
+
           await user.updatePassword(_newPasswordController.text);
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -64,7 +71,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           ),
         ],
         backgroundColor: Colors.black,
-          foregroundColor: Colors.white
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -97,7 +104,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 controller: _confirmNewPasswordController,
                 labelText: 'Confirm New Password',
                 obscureText: true,
-                errorText: _passwordMatchError,
+                //errorText: _passwordMatchError,
               ),
               SizedBox(height: 24.0),
               FormButton(
@@ -107,72 +114,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class FormButton extends StatelessWidget {
-  final String text;
-  final Function? onPressed;
-
-  const FormButton({this.text = '', this.onPressed, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-
-    return GestureDetector(
-      onTap: onPressed as void Function()?,
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class InputField extends StatelessWidget {
-  final TextEditingController controller;
-  final String? labelText;
-  final bool obscureText;
-  final String? errorText;
-
-  const InputField({
-    required this.controller,
-    this.labelText,
-    this.obscureText = false,
-    this.errorText,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      style: TextStyle(fontSize: 18.0),
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: TextStyle(fontSize: 18.0),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        errorText: errorText,
       ),
     );
   }

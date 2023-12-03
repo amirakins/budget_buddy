@@ -7,9 +7,6 @@ import 'notification.dart';
 import 'edit_recurring_income.dart';
 import 'edit_recurring_expenses.dart';
 import 'edit_income_division.dart';
-import 'test.dart';
-import 'test2.dart';
-import 'test3.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -92,14 +89,6 @@ class ProfilePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NotificationPage()),
-            );
-          }),*/
-          /*SizedBox(height: 16.0),
-          _buildButton(context, 'Test', () {
-            Navigator.push(
-              context,
-              //MaterialPageRoute(builder: (context) => TestPage2()),
-              MaterialPageRoute(builder: (context) => TestPage3()),
             );
           }),*/
         ],

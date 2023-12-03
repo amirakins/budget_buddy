@@ -49,7 +49,7 @@ class PersonalExpensesList extends StatelessWidget {
                     style: TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                    '\$${double.parse(expense['amount'].toUpperCase() ?? '0.0').toStringAsFixed(2)}',
+                    '\$${double.parse(expense['amount'] ?? '0.0').toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 20),
                   ),
                   trailing: Row(
@@ -104,20 +104,18 @@ class PersonalExpensesList extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
-          final Map<String, dynamic>? userData = userDoc.data() as Map<
-              String,
-              dynamic>?;
+          final Map<String, dynamic>? userData =
+              userDoc.data() as Map<String, dynamic>?;
 
-          final List<dynamic> currentExpenses = (userData?['expenses'] as List<
-              dynamic>?) ??
-              [];
+          final List<dynamic> currentExpenses =
+              (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -135,8 +133,8 @@ class PersonalExpensesList extends StatelessWidget {
     }
   }
 
-  void _showDeleteExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showDeleteExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -163,8 +161,8 @@ class PersonalExpensesList extends StatelessWidget {
     );
   }
 
-  void _showEditExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showEditExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     TextEditingController nameController = TextEditingController();
     TextEditingController amountController = TextEditingController();
 
@@ -185,8 +183,7 @@ class PersonalExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
               ),
               SizedBox(height: 16.0),
               TextFormField(
@@ -196,8 +193,7 @@ class PersonalExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
@@ -237,25 +233,27 @@ class PersonalExpensesList extends StatelessWidget {
     );
   }
 
-  void _updateExpense(String category,
-      Map<String, dynamic> expense,
-      String updatedName,
-      String updatedAmount,) {
+  void _updateExpense(
+    String category,
+    Map<String, dynamic> expense,
+    String updatedName,
+    String updatedAmount,
+  ) {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
           final Map<String, dynamic>? userData =
-          userDoc.data() as Map<String, dynamic>?;
+              userDoc.data() as Map<String, dynamic>?;
 
           List<dynamic> currentExpenses =
               (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -274,6 +272,7 @@ class PersonalExpensesList extends StatelessWidget {
     }
   }
 }
+
 class HousingExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -327,8 +326,7 @@ class HousingExpensesList extends StatelessWidget {
                       SizedBox(width: 8),
                       ElevatedButton(
                         onPressed: () {
-                          _showDeleteExpenseDialog(
-                              context, 'Housing', expense);
+                          _showDeleteExpenseDialog(context, 'Housing', expense);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.black,
@@ -358,20 +356,18 @@ class HousingExpensesList extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
-          final Map<String, dynamic>? userData = userDoc.data() as Map<
-              String,
-              dynamic>?;
+          final Map<String, dynamic>? userData =
+              userDoc.data() as Map<String, dynamic>?;
 
-          final List<dynamic> currentExpenses = (userData?['expenses'] as List<
-              dynamic>?) ??
-              [];
+          final List<dynamic> currentExpenses =
+              (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -389,8 +385,8 @@ class HousingExpensesList extends StatelessWidget {
     }
   }
 
-  void _showDeleteExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showDeleteExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -417,8 +413,8 @@ class HousingExpensesList extends StatelessWidget {
     );
   }
 
-  void _showEditExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showEditExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     TextEditingController nameController = TextEditingController();
     TextEditingController amountController = TextEditingController();
 
@@ -439,8 +435,7 @@ class HousingExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
               ),
               SizedBox(height: 16.0),
               TextFormField(
@@ -450,8 +445,7 @@ class HousingExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
@@ -491,25 +485,27 @@ class HousingExpensesList extends StatelessWidget {
     );
   }
 
-  void _updateExpense(String category,
-      Map<String, dynamic> expense,
-      String updatedName,
-      String updatedAmount,) {
+  void _updateExpense(
+    String category,
+    Map<String, dynamic> expense,
+    String updatedName,
+    String updatedAmount,
+  ) {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
           final Map<String, dynamic>? userData =
-          userDoc.data() as Map<String, dynamic>?;
+              userDoc.data() as Map<String, dynamic>?;
 
           List<dynamic> currentExpenses =
               (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -528,6 +524,7 @@ class HousingExpensesList extends StatelessWidget {
     }
   }
 }
+
 class FoodExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -581,8 +578,7 @@ class FoodExpensesList extends StatelessWidget {
                       SizedBox(width: 8),
                       ElevatedButton(
                         onPressed: () {
-                          _showDeleteExpenseDialog(
-                              context, 'Food', expense);
+                          _showDeleteExpenseDialog(context, 'Food', expense);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.black,
@@ -612,20 +608,18 @@ class FoodExpensesList extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
-          final Map<String, dynamic>? userData = userDoc.data() as Map<
-              String,
-              dynamic>?;
+          final Map<String, dynamic>? userData =
+              userDoc.data() as Map<String, dynamic>?;
 
-          final List<dynamic> currentExpenses = (userData?['expenses'] as List<
-              dynamic>?) ??
-              [];
+          final List<dynamic> currentExpenses =
+              (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -643,8 +637,8 @@ class FoodExpensesList extends StatelessWidget {
     }
   }
 
-  void _showDeleteExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showDeleteExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -671,8 +665,8 @@ class FoodExpensesList extends StatelessWidget {
     );
   }
 
-  void _showEditExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showEditExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     TextEditingController nameController = TextEditingController();
     TextEditingController amountController = TextEditingController();
 
@@ -693,8 +687,7 @@ class FoodExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
               ),
               SizedBox(height: 16.0),
               TextFormField(
@@ -704,8 +697,7 @@ class FoodExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
@@ -745,25 +737,27 @@ class FoodExpensesList extends StatelessWidget {
     );
   }
 
-  void _updateExpense(String category,
-      Map<String, dynamic> expense,
-      String updatedName,
-      String updatedAmount,) {
+  void _updateExpense(
+    String category,
+    Map<String, dynamic> expense,
+    String updatedName,
+    String updatedAmount,
+  ) {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
           final Map<String, dynamic>? userData =
-          userDoc.data() as Map<String, dynamic>?;
+              userDoc.data() as Map<String, dynamic>?;
 
           List<dynamic> currentExpenses =
               (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -782,6 +776,7 @@ class FoodExpensesList extends StatelessWidget {
     }
   }
 }
+
 class TransportationExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -819,7 +814,8 @@ class TransportationExpensesList extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          _showEditExpenseDialog(context, 'Transportation', expense);
+                          _showEditExpenseDialog(
+                              context, 'Transportation', expense);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
@@ -866,20 +862,18 @@ class TransportationExpensesList extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
-          final Map<String, dynamic>? userData = userDoc.data() as Map<
-              String,
-              dynamic>?;
+          final Map<String, dynamic>? userData =
+              userDoc.data() as Map<String, dynamic>?;
 
-          final List<dynamic> currentExpenses = (userData?['expenses'] as List<
-              dynamic>?) ??
-              [];
+          final List<dynamic> currentExpenses =
+              (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
@@ -897,8 +891,8 @@ class TransportationExpensesList extends StatelessWidget {
     }
   }
 
-  void _showDeleteExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showDeleteExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -925,8 +919,8 @@ class TransportationExpensesList extends StatelessWidget {
     );
   }
 
-  void _showEditExpenseDialog(BuildContext context, String category,
-      Map<String, dynamic> expense) {
+  void _showEditExpenseDialog(
+      BuildContext context, String category, Map<String, dynamic> expense) {
     TextEditingController nameController = TextEditingController();
     TextEditingController amountController = TextEditingController();
 
@@ -950,8 +944,7 @@ class TransportationExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
               ),
               SizedBox(height: 16.0),
               TextFormField(
@@ -961,8 +954,7 @@ class TransportationExpensesList extends StatelessWidget {
                     labelStyle: TextStyle(fontSize: 16.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    )
-                ),
+                    )),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
@@ -1002,25 +994,27 @@ class TransportationExpensesList extends StatelessWidget {
     );
   }
 
-  void _updateExpense(String category,
-      Map<String, dynamic> expense,
-      String updatedName,
-      String updatedAmount,) {
+  void _updateExpense(
+    String category,
+    Map<String, dynamic> expense,
+    String updatedName,
+    String updatedAmount,
+  ) {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(user.uid);
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       userDocRef.get().then((userDoc) {
         if (userDoc.exists) {
           final Map<String, dynamic>? userData =
-          userDoc.data() as Map<String, dynamic>?;
+              userDoc.data() as Map<String, dynamic>?;
 
           List<dynamic> currentExpenses =
               (userData?['expenses'] as List<dynamic>?) ?? [];
 
           int index = currentExpenses.indexWhere((exp) =>
-          exp['category'] == category &&
+              exp['category'] == category &&
               exp['name'] == expense['name'] &&
               exp['amount'] == expense['amount']);
 
