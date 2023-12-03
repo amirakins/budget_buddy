@@ -118,6 +118,7 @@ class _EditRecurringIncomeState extends State<EditRecurringIncomePage> {
           children: <Widget>[
             const Text(
               'Edit Your Income',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,

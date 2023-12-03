@@ -45,11 +45,11 @@ class PersonalExpensesList extends StatelessWidget {
               children: personalExpenses.map((expense) {
                 return ListTile(
                   title: Text(
-                    expense['name'] ?? '',
+                    expense['name'].toUpperCase() ?? '',
                     style: TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                    '\$${expense['amount'] ?? ''}',
+                    '\$${double.parse(expense['amount'].toUpperCase() ?? '0.0').toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 20),
                   ),
                   trailing: Row(
@@ -180,38 +180,58 @@ class PersonalExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
               ),
+              SizedBox(height: 16.0),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount (\$)'),
+                decoration: InputDecoration(
+                    labelText: 'Amount (\$)',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
               ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  _updateExpense(
+                    category,
+                    expense,
+                    nameController.text,
+                    amountController.text,
+                  );
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Save',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                _updateExpense(
-                  category,
-                  expense,
-                  nameController.text,
-                  amountController.text,
-                );
-                Navigator.pop(context);
-              },
-              child: Text('Save'),
-            ),
-          ],
         );
       },
     );
@@ -279,11 +299,11 @@ class HousingExpensesList extends StatelessWidget {
               children: housingExpenses.map((expense) {
                 return ListTile(
                   title: Text(
-                    expense['name'] ?? '',
+                    expense['name'].toUpperCase() ?? '',
                     style: TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                    '\$${expense['amount'] ?? ''}',
+                    '\$${double.parse(expense['amount'] ?? '0.0').toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 20),
                   ),
                   trailing: Row(
@@ -414,38 +434,58 @@ class HousingExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
               ),
+              SizedBox(height: 16.0),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount (\$)'),
+                decoration: InputDecoration(
+                    labelText: 'Amount (\$)',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
               ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  _updateExpense(
+                    category,
+                    expense,
+                    nameController.text,
+                    amountController.text,
+                  );
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Save',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                _updateExpense(
-                  category,
-                  expense,
-                  nameController.text,
-                  amountController.text,
-                );
-                Navigator.pop(context);
-              },
-              child: Text('Save'),
-            ),
-          ],
         );
       },
     );
@@ -513,11 +553,11 @@ class FoodExpensesList extends StatelessWidget {
               children: foodExpenses.map((expense) {
                 return ListTile(
                   title: Text(
-                    expense['name'] ?? '',
+                    expense['name'].toUpperCase() ?? '',
                     style: TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                    '\$${expense['amount'] ?? ''}',
+                    '\$${double.parse(expense['amount'] ?? '0.0').toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 20),
                   ),
                   trailing: Row(
@@ -648,38 +688,58 @@ class FoodExpensesList extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
               ),
+              SizedBox(height: 16.0),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount (\$)'),
+                decoration: InputDecoration(
+                    labelText: 'Amount (\$)',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
               ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  _updateExpense(
+                    category,
+                    expense,
+                    nameController.text,
+                    amountController.text,
+                  );
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Save',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                _updateExpense(
-                  category,
-                  expense,
-                  nameController.text,
-                  amountController.text,
-                );
-                Navigator.pop(context);
-              },
-              child: Text('Save'),
-            ),
-          ],
         );
       },
     );
@@ -747,11 +807,11 @@ class TransportationExpensesList extends StatelessWidget {
               children: transportationExpenses.map((expense) {
                 return ListTile(
                   title: Text(
-                    expense['name'] ?? '',
+                    expense['name'].toUpperCase() ?? '',
                     style: TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                    '\$${expense['amount'] ?? ''}',
+                    '\$${double.parse(expense['amount'] ?? '0.0').toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 20),
                   ),
                   trailing: Row(
@@ -877,43 +937,66 @@ class TransportationExpensesList extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit Expense'),
+          title: Text(
+            'Edit Expense',
+            textAlign: TextAlign.center,
+          ),
           content: Column(
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
               ),
+              SizedBox(height: 16.0),
               TextFormField(
                 controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount (\$)'),
+                decoration: InputDecoration(
+                    labelText: 'Amount (\$)',
+                    labelStyle: TextStyle(fontSize: 16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
               ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  _updateExpense(
+                    category,
+                    expense,
+                    nameController.text,
+                    amountController.text,
+                  );
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Save',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                _updateExpense(
-                  category,
-                  expense,
-                  nameController.text,
-                  amountController.text,
-                );
-                Navigator.pop(context);
-              },
-              child: Text('Save'),
-            ),
-          ],
         );
       },
     );

@@ -222,7 +222,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               elevation: 5.0,
               child: CategoryChart(
-                categoryName: 'Balance: \$${remainingBalance.toStringAsFixed(2)} / \$${monthlyIncome.toStringAsFixed(2)}' '\n Savings Goal: \$${savings.toStringAsFixed(2)}',
+                categoryName: 'Balance: \$${remainingBalance.toStringAsFixed(2)} / \$${monthlyIncome.toStringAsFixed(2)}',
                 allocated: monthlyIncome,
                 expenses: monthlyExpenses,
                 showAddButton: true,
@@ -369,6 +369,7 @@ class CategoryChart extends StatelessWidget {
               },
               child: Text(
                 'Add Expense',
+                textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
               ),
               style: OutlinedButton.styleFrom(
@@ -447,6 +448,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           DropdownButtonFormField<String>(
             value: selectedCategory,
@@ -456,6 +458,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
                 child: Text(
                   category,
                   style: TextStyle(fontSize: 16.0, color: Colors.black),
+                  textAlign: TextAlign.center,
                 ),
               );
             }).toList(),
