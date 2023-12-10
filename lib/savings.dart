@@ -115,7 +115,7 @@ class _SavingsInputPageState extends State<SavingsInputPage> {
             ),
             SizedBox(height: 16.0),
             TextField(
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
               ],

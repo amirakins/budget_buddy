@@ -136,7 +136,7 @@ class _AdditionalInfoPageState extends State<AdditionalInfoPage> {
               SizedBox(height: 16.0),
               TextFormField(
                 controller: paymentAmountController,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],

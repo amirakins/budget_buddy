@@ -152,7 +152,7 @@ class _EditRecurringIncomeState extends State<EditRecurringIncomePage> {
             SizedBox(height: 16.0),
             TextField(
               controller: paymentAmountController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
               ],

@@ -76,7 +76,7 @@ class _AddExpensePageState extends State<AddExpensePage> {
             TextFormField(
               controller: _amountController,
               decoration: InputDecoration(labelText: 'Amount (\$)'),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
             ),
             ElevatedButton(
               onPressed: _handleAddExpense,

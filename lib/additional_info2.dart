@@ -294,7 +294,7 @@ class _AdditionalInfo2PageState extends State<AdditionalInfo2Page> {
                                 SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: expenseAmountController,
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                                   style: TextStyle(
                                     fontSize: 16.0,
                                   ),

@@ -517,7 +517,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
               }
             },
             style: TextStyle(fontSize: 16.0),
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
             ],
